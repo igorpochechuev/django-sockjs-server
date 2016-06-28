@@ -1,7 +1,7 @@
 import logging
 import tornado
 from django.core.management.base import BaseCommand
-from django_sockjs_server.lib.config import SockJSServerSettings
+from django_sockjs_server.lib.config import SockJSSereverSettings
 from django_sockjs_server.lib.sockjs_handler import SockJSRouterPika, SockJSConnection, StatsHandler
 
 
@@ -9,7 +9,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         logger = logging.getLogger(__name__)
         logger.info('start django-sockjs-server')
-        self.config = SockJSServerSettings()
+        self.config = SockJSSereverSettings()
 
         io_loop = tornado.ioloop.IOLoop.instance()
 
