@@ -1,7 +1,7 @@
 import logging
 import tornado
 from django.core.management.base import BaseCommand
-from django_sockjs_server.lib.config import SockJSSereverSettings
+from django_sockjs_server.lib.config import SockJSServerSettings
 from django_sockjs_server.lib.sockjs_handler import SockJSRouterPika, SockJSConnection, StatsHandler
 
 
@@ -9,7 +9,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         logger = logging.getLogger(__name__)
         logger.info('start django-sockjs-server')
-        self.config = SockJSSereverSettings()
+        self.config = SockJSServerSettings()
 
         io_loop = tornado.ioloop.IOLoop.instance()
 
@@ -23,7 +23,7 @@ class Command(BaseCommand):
 
 
         # app.listen(self.config.listen_port, address=self.config.listen_addr)
-        http_server = tornado.httpserver.HTTPServer(application, ssl_options={
+        http_server = tornado.httpserver.HTTPServer(app, ssl_options={
             "certfile": "/etc/letsencrypt/live/test11.graintrack.com/fullchain.pem",
             "keyfile": "/etc/letsencrypt/live/test11.graintrack.com/privkey.pem",
         })
