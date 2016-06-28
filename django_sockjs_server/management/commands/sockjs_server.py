@@ -1,5 +1,6 @@
 import logging
 import tornado
+from tornado.httpserver import HTTPServer as THTTPServer
 from django.core.management.base import BaseCommand
 from django_sockjs_server.lib.config import SockJSSereverSettings
 from django_sockjs_server.lib.sockjs_handler import SockJSRouterPika, SockJSConnection, StatsHandler
@@ -23,9 +24,9 @@ class Command(BaseCommand):
 
 
         # app.listen(self.config.listen_port, address=self.config.listen_addr)
-        http_server = tornado.httpserver.HTTPServer(app, ssl_options={
-            "certfile": "/etc/letsencrypt/live/test11.graintrack.com/fullchain.pem",
-            "keyfile": "/etc/letsencrypt/live/test11.graintrack.com/privkey.pem",
+        http_server = THTTPServer(app, ssl_options={
+            "certfile": "/usr/src/fullchain.pem",
+            "keyfile": "/usr/src/privkey.pem",
         })
         http_server.listen(self.config.listen_port, address=self.config.listen_addr)
 
