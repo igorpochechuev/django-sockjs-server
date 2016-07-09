@@ -26,7 +26,7 @@ class Command(BaseCommand):
 
         # app.listen(self.config.listen_port, address=self.config.listen_addr)
         http_server = THTTPServer(app, ssl_options={
-            "certfile": settings.CERFILE,
+            "certfile": settings.CERTFILE,
             "keyfile": settings.KEYFILE,
         })
         http_server.listen(self.config.listen_port, address=self.config.listen_addr)
