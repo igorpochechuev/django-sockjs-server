@@ -23,13 +23,14 @@ class Command(BaseCommand):
                                       router.urls)
 
 
-
-        # app.listen(self.config.listen_port, address=self.config.listen_addr)
-        http_server = THTTPServer(app, ssl_options={
-            "certfile": settings.CERTFILE,
-            "keyfile": settings.KEYFILE,
-        })
-        http_server.listen(self.config.listen_port, address=self.config.listen_addr)
+        if hasattr(settings, 'CERTFILE') and hasattr(settings, 'KEYFILE'):
+            http_server = THTTPServer(app, ssl_options={
+                "certfile": settings.CERTFILE,
+                "keyfile": settings.KEYFILE,
+            })
+            http_server.listen(self.config.listen_port, address=self.config.listen_addr)
+        else:
+            app.listen(self.config.listen_port, address=self.config.listen_addr)
 
         try:
             io_loop.start()
